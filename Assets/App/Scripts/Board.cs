@@ -113,7 +113,7 @@ namespace App.Scripts
         {
             return playerType == PlayerType.Black
                 ? _blackUnits[Random.Range(0, _blackUnits.Count)]
-                : _blackUnits[Random.Range(0, _whiteUnits.Count)];
+                : _whiteUnits[Random.Range(0, _whiteUnits.Count)];
         }
 
         public Cell GetRandomStartCell(PlayerType playerType)
