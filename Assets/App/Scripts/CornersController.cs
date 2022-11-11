@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using App.Scripts.Behaviours;
+using App.Scripts.Interfaces;
 using UnityEngine;
-using IDisposable = App.Scripts.Interfaces.IDisposable;
 
 namespace App.Scripts
 {
-    public class CornersController : IDisposable
+    public class CornersController : IDestroyable
     {
         private readonly Board _board;
         private readonly CellsHighlight _highlight;
@@ -111,11 +111,11 @@ namespace App.Scripts
 
         public void Pause(bool value) => _pause = value;
 
-        public void Dispose()
+        public void Destroy()
         {
             GameInput.CellSelected -= OnCellSelected;
-            _board.Dispose();
-            _highlight.Dispose();
+            _board.Destroy();
+            _highlight.Destroy();
         }
     }
 }

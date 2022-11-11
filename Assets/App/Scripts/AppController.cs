@@ -1,15 +1,15 @@
 using App.Scripts.Configs;
-using App.Scripts.Tools;
+using App.Scripts.ServiceLocator;
 using App.Scripts.UI;
 using UnityEngine;
 
 namespace App.Scripts
 {
-    public class AppController : MonoBehaviour
+    public class AppController : MonoBehaviour, IGameService
     {
         [SerializeField] private GameResources _gameResources;
         [SerializeField] private GameConfig _gameConfig;
-        [SerializeField] private Camera _camera;
+        [SerializeField] private GameCamera _camera;
         [SerializeField] private Vector2Int _boardSize;
         
         [Header("Debug")]
@@ -22,10 +22,10 @@ namespace App.Scripts
         
         private void Awake()
         {
-            SIContainer.Add(this);
-            SIContainer.Add(_camera);
-            SIContainer.Add(_gameConfig);
-            SIContainer.Add(_gameResources);
+            StaticServiceLocator.Add(this);
+            StaticServiceLocator.Add(_camera);
+            StaticServiceLocator.Add(_gameConfig);
+            StaticServiceLocator.Add(_gameResources);
         }
 
         private void Start()
@@ -61,7 +61,7 @@ namespace App.Scripts
         
         public void DisposeGame()
         {
-            _cornersController.Dispose();
+            _cornersController.Destroy();
         }
         
         public void Quit()

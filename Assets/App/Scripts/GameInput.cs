@@ -1,5 +1,6 @@
 ﻿using System;
 using App.Scripts.Interfaces;
+using App.Scripts.ServiceLocator;
 using App.Scripts.Tools;
 using UnityEngine;
 
@@ -8,17 +9,17 @@ namespace App.Scripts
     public class GameInput: IUpdatable
     {
         public static event Action<Vector2Int> CellSelected;
-        private readonly Camera _camera;
+        private readonly GameCamera _camera;
 
         public GameInput()
         {
-            _camera = SIContainer.Get<Camera>();
+            _camera = StaticServiceLocator.Get<GameCamera>();
         }
         
         public void Update(float deltaTime)
         {
             if (!Input.GetMouseButtonDown(0) && !Input.GetMouseButtonDown(1)) return;
-            var position = RaycastCellPosition(_camera);
+            var position = RaycastCellPosition(_camera.Camera);
             if (!position.HasValue) return;
             CellSelected?.Invoke(position.Value);
         }

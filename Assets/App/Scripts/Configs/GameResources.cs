@@ -1,10 +1,11 @@
 ﻿using App.Scripts.Behaviours;
+using App.Scripts.ServiceLocator;
 using UnityEngine;
 
 namespace App.Scripts.Configs
 {
     [CreateAssetMenu(fileName = "GameResources", menuName = "ScriptableObjects/GameResources", order = 1)]
-    public class GameResources : ScriptableObject
+    public class GameResources : ScriptableObject, IGameService
     {
         [Header("Cells")]
         [SerializeField] private Cell _cellBlack;

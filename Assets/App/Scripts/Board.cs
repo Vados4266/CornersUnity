@@ -3,12 +3,13 @@ using System.Linq;
 using App.Scripts.Behaviours;
 using App.Scripts.Configs;
 using App.Scripts.Interfaces;
+using App.Scripts.ServiceLocator;
 using App.Scripts.Tools;
 using UnityEngine;
 
 namespace App.Scripts
 {
-    public class Board : IDisposable
+    public class Board : IDestroyable
     {
         private readonly List<Cell> _cells = new List<Cell>();
         private readonly List<Unit> _units = new List<Unit>();
@@ -26,13 +27,13 @@ namespace App.Scripts
         {
             _size = size;
             _gameMode = gameMode;
-            _resources = SIContainer.Get<GameResources>();
-            _config = SIContainer.Get<GameConfig>();
+            _resources = StaticServiceLocator.Get<GameResources>();
+            _config = StaticServiceLocator.Get<GameConfig>();
 
             Init();
         }
 
-        public void Dispose()
+        public void Destroy()
         {
             Object.Destroy(_boardTransform.gameObject);
         }
@@ -46,7 +47,7 @@ namespace App.Scripts
                 {
                     var prefab = (x + y) % 2 == 1 ? _resources.CellWhite : _resources.CellBlack;
                     var cell = Utils.Instantiate(prefab, new Vector2Int(x, y), _boardTransform);
-                    cell.SetCoords(x, y);
+                    cell.SetPosition(x, y);
                     _cells.Add(cell);
                 }
             }

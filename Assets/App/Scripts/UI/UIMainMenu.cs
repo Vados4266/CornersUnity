@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using App.Scripts.ServiceLocator;
 using App.Scripts.Tools;
 using TMPro;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace App.Scripts.UI
         
         private GameMode _gameMode = GameMode.Normal;
         private bool _aiOpponent;
-        private AppController _app => SIContainer.Get<AppController>();
+        private AppController _app => StaticServiceLocator.Get<AppController>();
         
         private void Start()
         {

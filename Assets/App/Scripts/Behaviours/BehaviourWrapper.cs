@@ -5,7 +5,6 @@ namespace App.Scripts.Behaviours
     public class BehaviourWrapper: MonoBehaviour
     {
         private Transform _transform;
-
         public Transform Transform => transform;
 
         public new Transform transform

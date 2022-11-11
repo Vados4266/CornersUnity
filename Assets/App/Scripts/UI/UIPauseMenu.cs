@@ -1,4 +1,5 @@
-﻿using App.Scripts.Tools;
+﻿using App.Scripts.ServiceLocator;
+using App.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,13 +20,13 @@ namespace App.Scripts.UI
 
         public override void Open()
         {
-            SIContainer.Get<AppController>().PauseGame(true);
+            StaticServiceLocator.Get<AppController>().PauseGame(true);
             base.Open();
         }
 
         public override void Close()
         {
-            SIContainer.Get<AppController>().PauseGame(false);
+            StaticServiceLocator.Get<AppController>().PauseGame(false);
             base.Close();
         }
 
@@ -39,12 +40,12 @@ namespace App.Scripts.UI
         {
             Close();
             GetWidget<UIMainMenu>().Open();
-            SIContainer.Get<AppController>().DisposeGame();
+            StaticServiceLocator.Get<AppController>().DisposeGame();
         }
 
         private void AppQuit()
         {
-            SIContainer.Get<AppController>().Quit();
+            StaticServiceLocator.Get<AppController>().Quit();
         }
     }
 }
